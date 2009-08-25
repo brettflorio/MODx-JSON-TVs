@@ -1,0 +1,29 @@
+Index: manager/actions/mutate_tmplvars.dynamic.php
+===================================================================
+--- manager/actions/mutate_tmplvars.dynamic.php	(revision 5684)
++++ manager/actions/mutate_tmplvars.dynamic.php	(working copy)
+@@ -345,6 +345,7 @@
+ 	            <option value="htmlentities" <?php echo ($content['display']=='htmlentities')? "selected='selected'":""; ?>>HTML Entities</option>
+ 	            <option value="date" <?php echo ($content['display']=='date')? "selected='selected'":""; ?>>Date Formatter</option>
+ 	            <option value="unixtime" <?php echo ($content['display']=='unixtime')? "selected='selected'":""; ?>>Unixtime</option>
++	            <option value="base64" <?php echo ($content['display']=='base64')? "selected='selected'":""; ?>>base64 Encoded</option>
+ 	            <option value="delim" <?php echo ($content['display']=='delim')? "selected='selected'":""; ?>>Delimited List</option>
+ 	            <option value="htmltag" <?php echo ($content['display']=='htmltag')? "selected='selected'":""; ?>>HTML Generic Tag</option>
+ 	            <option value="hyperlink" <?php echo ($content['display']=='hyperlink')? "selected='selected'":""; ?>>Hyperlink</option>
+Index: manager/includes/tmplvars.format.inc.php
+===================================================================
+--- manager/includes/tmplvars.format.inc.php	(revision 5684)
++++ manager/includes/tmplvars.format.inc.php	(working copy)
+@@ -244,6 +244,12 @@
+ 				$o = $timestamp;
+ 				break;
+ 
++			case "base64":
++				$value = parseInput($value);
++				// base64 encode the value
++				$o = base64_encode($value);
++				break;
++
+ 			case "viewport":
+ 				$value = parseInput($value);
+ 				$id = '_'.time();
